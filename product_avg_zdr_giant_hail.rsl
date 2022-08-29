@@ -1,0 +1,29 @@
+//******************************************************************************
+//
+// Average ZDR in layer
+// Uses -5C to -15C because this is where most significant growth for giant hail occurs
+
+Product
+ {
+  Name = "AVZD"		// Unique name for product "AVerage ZDr"
+
+  Category = "ZDR"
+
+  resolution = high
+ }
+
+//******************************************************************************
+
+
+Program
+ {
+  float avg;
+
+  enumerate layers from HGTfromTEMP( -5 ) to HGTfromTEMP( -15 )	// enumerate data heights from -5C to -15C
+   {
+    avg = ( ZDRfromHGT( layer.bottom ) + ZDRfromHGT( layer.top )) / 2;	
+   }
+
+  return avg;  					
+ }
+

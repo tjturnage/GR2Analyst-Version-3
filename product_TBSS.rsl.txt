@@ -1,0 +1,70 @@
+
+
+//******************************************************************************
+
+Product
+ {
+  Name = "TBSS"		// Unique name for product
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 100		// category maximum value
+    Units   = "%"
+
+    ColorTable		// color table for category
+     {
+      Units    = "%"
+      Step     = 10
+
+      Color[100] = hsluv( 0, 0, 90 )
+      Color[ 90] = solid( hsluv( 308, 100, 50 ) )
+      Color[ 80] = solid( hsluv(  12, 100, 50 ) )
+      Color[ 70] = solid( hsluv(  30, 100, 60 ) )
+      Color[ 60] = solid( hsluv( 128, 100, 50 ) )
+      Color[ 50] = solid( rgb( 164, 164, 255 ) )
+      Color[ 20] = solid( rgb(  92,  92,  92 ) )
+     }
+
+   }
+
+
+//  resolution = high
+ }
+
+
+//******************************************************************************
+
+Program
+ {
+  float prob;
+  float br;
+
+  prob = 0;
+
+  enumerate levels from 8000
+   {
+    br = BRfromHGT( level.height );
+    if( br < 15 )
+     {
+      float sw_wgt;
+
+      sw_wgt = weight( 7, SWfromHGT( level.height ), 12 );
+      if( sw_wgt > 0 )
+       {
+        float new_prob;
+
+        new_prob = trapezoid( 0.20, 0.25, CCfromHGT( level.height ), 0.60, 0.70 ) +
+                   sw_wgt;
+
+        prob = max( prob, new_prob );
+       }
+     }
+   }
+
+  return 100 * prob / 2;
+ }
+
+
+

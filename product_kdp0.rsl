@@ -1,0 +1,28 @@
+
+
+Product
+ {
+  Name     = "KDP0"    // product name is KDP0
+  Category = "KDP"     // it uses the KDP category and color table
+  Resolution = high
+  min_br_required = 30
+ }
+
+
+Program
+ {
+  float max_kdp;
+
+  max_kdp = 0;
+
+  enumerate levels from Constants.hgt_0c
+   {
+    if( BRfromHGT( level.height ) > 30 )
+     {
+      max_kdp = max( max_kdp, KDPfromHGT( level.height ) );
+     }
+   }
+
+  return max_kdp;
+ }
+

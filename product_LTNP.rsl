@@ -1,0 +1,80 @@
+
+//
+// Shader for lightning derived from Wolf 2006 paper:
+//
+//    Anticipating the Initiation, Cessation, and Frequency of 
+//       Cloud-to-Ground Lightning, Utilizing WSR-88D Reflectivity Data
+//
+//
+// We don't have the updraft -10C level so we use the environment -10C
+//
+//
+
+//******************************************************************************
+//
+//  Define a product named LTGP, for lightning probability. Since there isn't
+//  an appropriate probability category built into AE, we need to provide a
+//  full Category definition.
+//
+
+Product
+ {
+  Name = "LTGP"
+  Resolution = high
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 100		// category maximum value
+    Units   = "%"
+
+    ColorTable		// color table for category
+     {
+      Units    = "%"
+      Step     = 10
+
+      Color[100] = rgb( 128, 128, 128 )
+      Color[ 90] = rgb( 255, 255, 255 )							// white to gray, 90 to 100
+      Color[ 80] = gradient( rgb( 255,   0, 255 ), rgb( 128,   0, 128 ) )	// purple gradient, 80 to 90
+      Color[ 50] = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )	// red gradient, 50 to 80
+      Color[ 25] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )	// yellow/orange gradient, 25 to 50
+      Color[  5] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )	// green gradient, 5 to 25
+      Color[  0] = solid( rgb( 0, 0, 0, 0 ) )						// transparent up to 5%
+     }
+
+   }
+
+  min_br_required = 40  // skip columns that don't contribute
+ }
+
+
+//******************************************************************************
+//
+//  The Program simply calculates the 40 dbz height above the E-10 level
+//  then looks up the corresponding probability in the Curve. Note that
+//  the curve is in kft, so there's a conversion from meters (UDP's height
+//  units) to kft before the lookup.
+//
+
+Program
+ {
+  float kft;
+
+  Curve prob_frequent =    // curve from "Frequent CG" line in Fig 6
+    {
+     {  3,    0 },
+     {  6,    8 },
+     {  9,   32 },
+     { 12.5, 48 },
+     { 16.5, 91 },
+     { 18,   96 }
+    };
+
+
+  kft = 0.0032808 * ( HGTfromBR( 40 ) - HGTfromTEMP( -10 ) );
+
+  return prob_frequent[ kft ];
+ }
+
+

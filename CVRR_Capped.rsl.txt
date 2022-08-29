@@ -1,0 +1,66 @@
+//**********************************************************************
+//**********************************************************************
+//   Script to calculate the standard convective rainfall rate
+//   Based on a Z/R relationship Z = 300 * R ^ (1.4)
+//   Uses a hail cap, which can be adjusted in the code below
+//**********************************************************************
+//**********************************************************************
+
+Product
+ {
+  Name = "CVRR"     // product name is CVRR, for Convective Rainfall Rate
+
+  min_br_required = 18       // include only BR above 18 to eliminate likely non-meteorological echoes
+  
+  Category 
+   {
+    Missing = 0
+    Minimum = 0
+    Maximum = 13
+    Units   = "in/hr"
+	
+    ColorTable
+     {
+      Units = "in/hr"
+      Step  = 1
+
+	  Color[   12] =           rgb( 128, 128, 128 )
+      Color[   10] =           rgb( 255, 255, 255 )
+	  Color[    8] =           rgb( 110,   0, 210 )
+      Color[    6] =           rgb(  80,   0, 200 )                            
+      Color[    4] = gradient( rgb( 250,   0, 255 ), rgb(  90,   0, 202 ) )    
+      Color[    2] = gradient( rgb( 240, 116, 112 ), rgb( 128,   0,   0 ) )
+      Color[    1] = gradient( rgb( 255, 255,  96 ), rgb( 255, 144,  70 ) )
+      Color[  0.5] = gradient( rgb(  32, 200, 180 ), rgb(  32, 220,  32 ) )
+	  Color[  0.1] = gradient( rgb( 173, 216, 230 ), rgb(   0,   0, 152 ) )
+	  Color[    0] = gradient( rgb( 140, 120, 180 ), rgb( 100,  80, 140 ) )
+     }
+   }
+ }
+
+
+//**********************************************************************
+Program
+ {
+                 // declare variables
+  float R;
+  float Z;
+  float cap;
+
+  R = 0;         // initialize variables
+  Z = 0;
+  cap = 60.0;    // adjust cap value here!!!
+
+  enumerate levels                                     // enumerate starting at 0
+   {
+    float BR;
+
+    BR = min( BRfromHGT( level.height ), cap );          // sample BR and apply cap
+    Z = pow( 10, BR / 10 );                              // convert BR to Z
+    break;                                               // break out of enum 
+   }
+
+  R = 0.017 * pow( Z , 0.714 );    // compute rain rate from Z in mm/hr
+
+  return 0.0393701 * R;            // output rain rate in in/hr
+ }

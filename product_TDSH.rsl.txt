@@ -1,0 +1,64 @@
+
+
+//******************************************************************************
+
+Product
+ {
+  Name = "TDSH"    // product name is TDSH
+
+  Min_BR_Required = 40
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 30		// category maximum value
+    Units   = "kft"
+
+    ColorTable		// color table for category
+     {
+      Units    = "kft"
+      Step     = 5
+
+      Color[20]   = rgb( 128, 128, 128 )
+      Color[15]   = rgb( 255, 255, 255 )							// white to gray, 90 to 100
+      Color[10]   = gradient( rgb( 255,   0, 255 ), rgb( 128,   0, 128 ) )	// purple gradient, 80 to 90
+      Color[ 5]   = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )	// red gradient, 50 to 80
+      Color[ 1.0] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )	// yellow/orange gradient, 25 to 50
+      Color[ 0.5] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )	// green gradient, 5 to 25
+      Color[ 0]   = solid( rgb( 0, 0, 0, 0 ) )						// transparent up to 5%
+     }
+
+   }
+ }
+
+
+//******************************************************************************
+
+Program
+ {
+  float tdsh;
+
+  tdsh = 0;
+
+  enumerate levels
+   {
+    if( BRfromHGT( level.height ) > 40 )
+     {
+      if( trapezoid( 0.20, 0.30, CCfromHGT( level.height ), 0.85, 0.90 ) > 0.90 )
+       {
+        if( NROTfromHGT( level.height ) > 0.20 )
+         {
+          tdsh = level.height;
+         }
+       }
+     }
+   }
+
+  return 3.2808399 / 1000 * tdsh;
+ }
+
+
+
+
+

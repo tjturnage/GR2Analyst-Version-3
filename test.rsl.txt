@@ -1,0 +1,25 @@
+Product
+ {
+  Name     = "ZDR0"    // product name is ZDR0
+  Category = "ZDR"     // it uses the ZDR category and color table
+
+  min_br_required = 30
+ }
+
+
+Program
+ {
+  float max_zdr;
+
+  max_zdr = 0;
+
+  enumerate levels from HGTfromTEMP( -10 )
+   {
+    if( BRfromHGT( level.height ) > 30 )
+     {
+      max_zdr = max( max_zdr, ZDRfromHGT( level.height ) );
+     }
+   }
+
+  return max_zdr;
+ }
