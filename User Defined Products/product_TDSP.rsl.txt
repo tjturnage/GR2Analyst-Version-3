@@ -1,0 +1,88 @@
+
+//
+// Attempt at a lowest level TDS detector using BR, CC, ZDR, SW, and NROT. It uses
+// BR, CC, and ZDR membership functions from Snyder, et al:
+//
+//   https://ams.confex.com/ams/27SLS/webprogram/Handout/Paper255954/ptds3.pdf
+//
+// These serve as the base detector. They push the prob up to 90%. It then requires
+// either high SW or NROT to push the output to 100+. 
+//
+//
+// Notes:
+//
+//  1. BR > 25 and CC < 0.92 are required for a non-zero result
+//
+//  2. Values of >95+ should be considered as a detection
+//
+//  3. ZDR spokes can cause false detections
+//
+//  4. Since it uses SW and NROT, it's dependent on the SMV being set
+//     correctly for fast-moving storms
+//
+
+//******************************************************************************
+
+Product
+ {
+  Name = "TDSP"		// Unique name for product
+
+  Category
+   {
+    Missing = 0		// physical value for ND
+    Minimum = 0		// category minimum value
+    Maximum = 100		// category maximum value
+    Units   = "%"
+
+    ColorTable		// color table for category
+     {
+      Units    = "%"
+      Step     = 10
+
+      Color[100] = rgb( 255, 255, 255 )
+      Color[ 95] = rgb( 255,   0, 255 )							// purple to white gradient, 95 to 100
+      Color[ 90] = gradient( rgb( 255,   0,   0 ), rgb( 160,   0,   0 ) )	// red gradient, 90 to 95
+      Color[ 85] = gradient( rgb( 255, 255,   0 ), rgb( 255, 128,   0 ) )	// yellow/orange gradient, 85 to 90
+      Color[ 80] = gradient( rgb(   0, 255,   0 ), rgb(   0, 128,   0 ) )	// green gradient, 80 to 85
+      Color[ 70] = gradient( rgb( 164, 164, 255 ), rgb( 100, 100, 192 ) )	// bluish gradient, 70 to 80
+     }
+
+   }
+
+
+  min_br_required = 25
+  resolution = high
+ }
+
+
+//******************************************************************************
+
+Program
+ {
+  float br;
+
+  br = BRfromHGT( constants.hgt_lowest );		// sample lowest tilt of BR
+  if( br >= 25 )						// require BR >= 25
+   {
+    float cc;
+
+    cc = CCfromHGT( constants.hgt_lowest );
+    if( cc < 0.92 )					// require CC < 0.92
+     {
+      float prob;
+
+      prob = 40 * trapezoid( 0.00, 0.20, cc, 0.85, 0.92 ) +
+             30 * weight( 25, br, 35 ) +
+             20 * trapezoid( -2.5, -1.5, ZDRfromHGT( constants.hgt_lowest ), 1.5, 2.5 ) +
+             10 * weight( 0.30, NROTfromHGT( constants.hgt_lowest ), 0.50 ) +
+             10 * weight( 8, 1.9438 * SWfromHGT( constants.hgt_lowest ), 10 );
+
+      return clamp( 0, prob, 100 );
+     }
+   }
+
+  return 0;
+ }
+
+
+

@@ -1,0 +1,12 @@
+Product
+ {
+  Name     = "CR0C"    // product name is CR
+  Category = "BR"    // it uses the BR category and color table
+  Resolution = high
+ }
+
+
+Program
+ {
+  return MaxBRaboveHGT(HGTfromTEMP(0) );   // find the max reflectivity starting at zero height
+ }
