@@ -1,0 +1,59 @@
+//
+//Velocity (V) color table
+//Author: Dan Miller SOO/WFO Duluth MN
+//Modified by the TWIP Team over higher ranges
+
+//Product: BV
+//Units: KTS
+//Scale: 1.9426
+//Step:  5
+
+//RF: 64  0  64
+
+//Color4:  125    40    0    0   255  hsluv(12,100,4)
+//Color4:   80   255  255    0   255  hsluv(86,100,97)
+//Color4:   60   240  120    0   255  hsluv(30,100,63)
+//Color4:   50   255  180  180   255  hsluv(12,100,80)
+//Color4:   35   255    0    0   255  hsluv(12,100,53)
+//Color4:   15    70    0    0   255  hsluv(12,100,11)
+//Color4:    0   180  180  180   255  hsluv(0,0,73)
+//Color4:  -15     0   70    0   255  hsluv(128,100,25)
+//Color4:  -35     0  255    0   255  hsluv(128,100,88)
+//Color4:  -50   180  255  180   255  hsluv(128,100,94)
+//Color4:  -60     0  180  255   255  hsluv(239,100,69)
+//Color4:  -80     0    0  100   255  hsluv(266,100,8)
+//Color4: -125   230    0  180   255  hsluv(328,100,52)
+
+ColorTable
+ {
+  Category = "BV"
+  Units    = "KTS"
+  Step     = 10
+  Scale    =  1.9426     // converts internal MPS units to KTS
+
+  RF = rgb( 64, 0, 64 )
+
+
+// hsluv(12,100,28) dark red
+// hsluv(7,88,40) less dark
+// hsluv(4,68,52)
+// hsluv(2,80,64)
+// hsluv(5,98,76)
+// red yellow brown
+// green blue violet
+
+
+  Color[-125] = gradient(hsluv(328,100,52),hsluv(266,100,8))
+  Color[-80] = gradient(hsluv(266,100,8),hsluv(239,100,69))
+  Color[-60] = gradient(hsluv(239,100,69),hsluv(158,100,85))
+  Color[-50] = gradient(hsluv(158,100,85),hsluv(112,100,60))
+  Color[-35] = gradient(hsluv(112,100,63),hsluv(128,100,33))
+  Color[-15] = gradient(hsluv(128,100,33),hsluv(0,0,73))
+  Color[0] = gradient(hsluv(0,0,73), hsluv(12,100,25))
+  Color[15] = gradient(hsluv(12,100,25),hsluv(0,100,43))
+  Color[35] = gradient(hsluv(0,100,43),hsluv(12,100,75))
+  Color[50] = gradient(hsluv(12,100,75),hsluv(30,100,63))
+  Color[60] = gradient(hsluv(30,100,63),hsluv(86,100,97))
+  Color[80] = gradient(hsluv(86,100,97),hsluv(12,100,4))
+  Color[125] = hsluv(12,100,4)
+ }

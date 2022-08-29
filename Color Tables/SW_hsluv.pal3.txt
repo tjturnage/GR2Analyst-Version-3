@@ -1,0 +1,26 @@
+
+
+ColorTable
+ {
+  Category = "SW"
+  Units    = "KTS"
+  Step     = 1
+  Scale    =  1.9426     // converts internal MPS units to KTS
+
+//  Color[0] = gradient(hsluv(192,0,80), hsluv(192,0,80))
+//  Color[4] = gradient(hsluv(192,0,80), hsluv(192,100,91))
+//  Color[8] = gradient(hsluv(192,100,91),hsluv(12,100,30))
+//  Color[20] = gradient(hsluv(12,100,30),hsluv(330,100,70))
+//  Color[40] = hsluv(330,100,70)  
+
+  Color[0] = gradient(hsluv(0,0,20), hsluv(259,0,35))
+  Color[8] = gradient(hsluv(259,0,35),hsluv(259,100,100))
+  Color[24] = gradient(hsluv(86,100,100),hsluv(86,100,87))
+  Color[35] = hsluv(86,100,87)
+// 128,100,53 hsluv(308,100,60)
+
+//  Color[0] = gradient(hsluv(0,0,40), hsluv(0,0,40))
+//  Color[5] = gradient(hsluv(128,100,53),hsluv(308,100,40))
+//  Color[25] = hsluv(330,100,70)  
+
+ }

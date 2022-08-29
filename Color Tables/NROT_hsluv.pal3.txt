@@ -1,0 +1,26 @@
+
+ColorTable
+ {
+  Category = "NROT"
+  Units    = "s-1"
+  Step     = 0.25
+  Decimals = 2
+
+  Color[3.00] =  hsluv(308,100,53)
+  Color[2.50] =  hsluv(308,100,44)
+  Color[2.25] =  hsluv(12,100,42)
+  Color[2.00] =  hsluv(12,100,42)
+  Color[1.75] =  hsluv(28,100,66)
+  Color[1.50] =  hsluv(28,100,66)
+  Color[1.25] =  hsluv(45,100,75)
+  Color[1.00] =  hsluv(86,100,97)
+  Color[0.50] =  hsluv(128,88,53)
+  Color[0.25] =  hsluv(128,15,70)
+  Color[0.05] = hsluv(0,0,0,0)
+  Color[-0.05] = hsluv(0,0,0,0)
+  Color[-0.25] = hsluv(266,15,70)
+  Color[-0.50] = hsluv(266,100,53)
+  Color[-1.50] = hsluv(266,100,23)
+  Color[-2.00] = hsluv(266,100,10)
+ }
+

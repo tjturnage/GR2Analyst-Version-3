@@ -1,0 +1,18 @@
+
+ColorTable
+ {
+  Category = "CC"
+  Units    = "%"
+  Scale    = 100
+  Step     = 5
+
+  Color[101] = hsluv(303,100,70)
+  Color[100] = hsluv(303,100,70)
+  Color[ 99.99] = hsluv(0,0,85)
+  Color[ 98.5] = hsluv(0,0,85)
+  Color[ 90] = hsluv(86,100,55)
+  Color[ 82] = hsluv(266,100,30)
+  Color[ 40] = hsluv(266,100,0)
+ 
+ }
+

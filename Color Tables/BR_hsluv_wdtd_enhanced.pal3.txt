@@ -1,0 +1,48 @@
+
+//******************************************************************************
+//
+//  Enhanced WDTD Reflectivity color table
+//  - provides more detail 
+//
+//******************************************************************************
+// 
+// Color: -30 0 0 0  130 130 130
+// Color: 15 95 189 207 57 201 105 
+// Color: 20 57 201 105 0 40 0  
+// Color: 35 9 94 9 255 207 0 
+// Color: 40 255 207 0 255 133 0  
+// Color: 50 255 0 0 89 0 0
+// Color: 60 255 245 255 225 11 227 
+// Color: 70 164 0 247 99 0 214
+// Color: 75 5 221 224 58 103 181 
+// Color: 80 255 255 255
+//
+// ND: 0 0 0 
+// RF: 64 64 64
+
+
+
+ColorTable
+ {
+  Category = "BR"
+  Units    = "DBZ"
+  Step     = 5
+
+  Color[-30] = gradient( hsluv(   0, 0, 0 ), hsluv(   0,  0, 54 ) )
+  Color[15] = gradient( hsluv( 211, 75, 72 ), hsluv(  135,  89, 72 ) )
+  Color[20] = gradient( hsluv(  135,  89, 78 ), hsluv(  135, 89, 13 ) )
+  Color[34] = gradient( hsluv(  135, 89, 13 ), hsluv(  128, 96, 34 ) )
+  Color[35] = gradient( hsluv( 128, 96, 34 ), hsluv( 65, 100, 85 ) )
+  Color[40] = gradient( hsluv( 65, 100, 85 ), hsluv( 32, 100, 48 ) )
+  Color[49.5] = gradient( hsluv( 32, 100, 48 ), hsluv( 12, 100, 48 ) )
+  Color[50.5] = gradient( hsluv( 12, 100, 48 ), hsluv( 12, 100, 20 ) )
+  Color[56] = gradient( hsluv( 12, 100, 20 ), hsluv( 308, 100, 98 ) )
+  //Color[59] = gradient( hsluv( 12, 100, 10 ), hsluv( 308, 100, 98 ) )
+  Color[61] = gradient( hsluv( 308, 100, 98 ), hsluv( 307, 99, 54 ) )
+  Color[65] = gradient( hsluv( 307, 99, 54 ), hsluv( 274, 100, 33 ) )
+  Color[75] = gradient( hsluv( 194, 100, 80 ), hsluv( 255, 77, 44 ) )
+  Color[80] =           hsluv( 0, 0, 100 )
+ }
+
+
+
