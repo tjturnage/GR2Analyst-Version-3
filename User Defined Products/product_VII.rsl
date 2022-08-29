@@ -22,7 +22,7 @@ Product
       Units    = "VII"
       Step     = 5
 
-      Color[40   ] =           rgb( 255, 255, 255 )
+      Color[80   ] =           rgb( 255, 255, 255 )
       Color[21.30] =           rgb( 110,   0, 210 )
       Color[17.00] =           rgb(  80,   0, 200 )					// purple gradient
       Color[12.21] = gradient( rgb( 250,   0, 255 ), rgb(  90,   0, 202 ) )	// blue gradient

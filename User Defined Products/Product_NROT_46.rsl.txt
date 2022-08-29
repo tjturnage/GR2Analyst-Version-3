@@ -1,0 +1,35 @@
+
+//******************************************************************************
+//
+// Calculates the maximum value of NROT in the 4000-6000 ft ARL layer since this
+// is often a favored genesis layer for QLCS mesovortices
+//
+// 3/14/22 - added min_br_required
+
+Product
+ {
+  Name = "NR46"		// Unique name for product
+  Category = "NROT"
+  min_br_required = 5
+  resolution = high
+   }
+
+
+//******************************************************************************
+//
+// The "enumerate levels" line can be changed to emulate MRMS rotation tracks.
+// For example, 0 to 2000 for low level, 2000 to 6000 for mid level, etc.
+
+
+Program
+ {
+  float value;
+  value = 0;						    // initialize value to zero
+
+  enumerate levels from 4000 to 6000	// heights in meters corresponding to 4000 and 6000 feet ARL
+   {
+    value = max( value, NROTfromHGT( level.height ) );
+   }
+
+  return value; 
+ }
